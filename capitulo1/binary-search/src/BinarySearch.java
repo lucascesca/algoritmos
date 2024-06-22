@@ -3,8 +3,10 @@ public class BinarySearch {
         int[] list = {1, 3, 5, 7, 9, 23};
         System.out.println(binarySearch(list, 23));
         System.out.println(binarySearch(list, 59));
+        System.out.println(binarySearch(list, -1));
         System.out.println(recursiveBinarySearch(list, 0, list.length, 23));
         System.out.println(recursiveBinarySearch(list, 0, list.length, 59));
+        System.out.println(recursiveBinarySearch(list, 0, list.length, -1));
     }
 
     // Returns the position of the number passed as argument
@@ -37,18 +39,22 @@ public class BinarySearch {
     }
 
     private static Integer recursiveBinarySearch(int[] list, int low, int high, int item) {
-        int mid = low + high / 2;
-
-        if (high == 0 || mid == list.length) {
-            return null;
+        if (low == high) {
+            if (low != 0)
+                low -= 1;
+            if (list[low] == item)
+                return low;
+            else
+                return null;
         }
+        int mid = (low + high) / 2;
 
         if (list[mid] == item) {
             return mid;
         } else if (list[mid] > item) {
-            return recursiveBinarySearch(list, low, high-1, item);
+            return recursiveBinarySearch(list, low, mid - 1, item);
         } else {
-            return recursiveBinarySearch(list, low + 1, high, item);
+            return recursiveBinarySearch(list, mid + 1, high, item);
         }
     }
 }
